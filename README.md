@@ -19,7 +19,7 @@ Esta é uma API construída com Laravel para gerenciar discos e faixas. A API pe
 2. Instale as dependências do Composer:
 `
     composer install
-
+`
 3. Crie o arquivo .env a partir do .env.example:
 `
     cp .env.example .env
@@ -40,13 +40,12 @@ Esta é uma API construída com Laravel para gerenciar discos e faixas. A API pe
     php artisan key:generate
 `
 
-
 7. Execute as migrações:
-'''
+`
     php artisan migrate
-'''
+`
 
 8. Inicie o servidor de desenvolvimento:
-'''
+`
     php artisan serve
-'''
+`

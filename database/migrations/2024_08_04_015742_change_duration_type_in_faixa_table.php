@@ -11,12 +11,8 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('faixa', function (Blueprint $table) {
-            $table->id();
-            $table->timestamps();
-            $table->string("name");
-            $table->string("duration");
-            $table->string("disco_id");
+        Schema::table('faixa', function (Blueprint $table) {
+            $table->string('duration')->change();
         });
     }
 
@@ -25,6 +21,8 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('faixa');
+        Schema::table('faixa', function (Blueprint $table) {
+            $table->integer('duration')->change();
+        });
     }
 };

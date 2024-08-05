@@ -7,9 +7,25 @@ use App\Models\Faixa;
 
 class FaixaController extends Controller
 {
+
+
+    public function index()
+    {
+        $faixas = Faixa::all();
+        
+        return response()->json($faixas);
+    }
+
     public function getFaixasByDiscoId($disco_id)
     {
         $faixas = Faixa::where('disco_id', $disco_id)->get();
+
+        if ($faixas->isEmpty()) {
+            return response()->json([
+                'message' => 'Nenhuma faixa encontrada.',
+            ], 404);
+        }
+
         return response()->json($faixas);
     }
 
@@ -18,7 +34,7 @@ class FaixaController extends Controller
     {
         $validatedData = $request->validate([
             'name' => 'required|string|max:255',
-            'duration' => 'required|integer|min:0',
+            'duration' => 'required|string|max:255',
             'disco_id' => 'required|exists:discos,id'
         ]);
 
@@ -37,16 +53,14 @@ class FaixaController extends Controller
         }
 
         $faixa->delete();
+
         return response()->json(['message' => 'Faixa deleted successfully']);
     }
 
-    public function searchByName(Request $request)
+    public function searchByName($name)
     {
-        $validatedData = $request->validate([
-            'name' => 'required|string|max:255',
-        ]);
 
-        $faixas = Faixa::where('name', 'like', '%' . $validatedData['name'] . '%')->get();
+        $faixas = Faixa::where('name', 'like', '%' . $name . '%')->get();
 
         return response()->json($faixas);
     }

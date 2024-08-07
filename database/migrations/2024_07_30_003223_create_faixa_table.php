@@ -16,7 +16,7 @@ return new class extends Migration
             $table->timestamps();
             $table->string("name");
             $table->string("duration");
-            $table->string("disco_id");
+            $table->integer("disco_id");
         });
     }
 
